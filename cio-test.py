@@ -18,7 +18,6 @@ class PythonOrgSearch(unittest.TestCase):
 
         #Links for CIO page
         self.url_HomePage = "http://idata-a.d1.comp.nus.edu.sg/home"
-        self.url_MainPage = ""
 
     #This will be testing the Home page
     def test_HomePage(self):
@@ -54,9 +53,14 @@ class PythonOrgSearch(unittest.TestCase):
         self.assertIn("home", driver.title)
 
     #This will testing the main page after logging in
-    #def test_MainPage(self):
-    #    driver = self.driver
-    #    driver.get(self.url)
+    def test_MainPage(self):
+        self.test_TwitterLogin()
+        driver = self.driver
+        driver.get(self.url_HomePage)
+        try:
+            driver.find_element_by_xpath("//a[contains(@href,'#tab1')]")
+        except NoSuchElementException:
+            assert 0, "Did not return correct search result"
 
     #This will be testing CIO search
     def test_Search(self):
